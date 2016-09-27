@@ -1,5 +1,5 @@
 # logintest
-Programming Test using Spring stack
+Programming Test using Spring stack (Boot, MVC, Data JPA[Hibernate]) and PostgreSQL.
 
 # Database Schema
 The database schema is [`20160927_DB_data.sql`](https://github.com/reylibutan/logintest/blob/master/20160927_DB_data.sql).
