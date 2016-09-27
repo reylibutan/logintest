@@ -69,8 +69,8 @@ public class LoginControllerTest {
 
 
 	@Test
-	@Sql("insert-data.sql")
-	@Sql(scripts = "cleanup-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
+	@Sql("classpath:insert-data.sql")
+	@Sql(scripts = "classpath:cleanup-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 	public void testGetUniqueUsers_StartAndEndDatesPresent() throws Exception {
 		String url = "/users?start=10000101&end=10000101";
 		String expected = "[\"@@@Test1\",\"@@@Test2\"]";
@@ -92,8 +92,8 @@ public class LoginControllerTest {
 	}
 
 	@Test
-	@Sql("insert-data.sql")
-	@Sql(scripts = "cleanup-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
+	@Sql("classpath:insert-data.sql")
+	@Sql(scripts = "classpath:cleanup-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 	public void testGetUniqueUsers_OnlyStartDatePresent() throws Exception {
 		String url = "/users?start=99990101";
 		String expected = "[\"@@@Test999\"]";
@@ -106,8 +106,8 @@ public class LoginControllerTest {
 	}
 
 	@Test
-	@Sql("insert-data.sql")
-	@Sql(scripts = "cleanup-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
+	@Sql("classpath:insert-data.sql")
+	@Sql(scripts = "classpath:cleanup-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 	public void testGetUniqueUsers_OnlyEndDatePresent() throws Exception {
 		String url = "/users?end=10000101";
 		String expected = "[\"@@@Test1\",\"@@@Test2\"]";
@@ -140,8 +140,8 @@ public class LoginControllerTest {
 	}
 
 	@Test
-	@Sql("insert-data.sql")
-	@Sql(scripts = "cleanup-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
+	@Sql("classpath:insert-data.sql")
+	@Sql(scripts = "classpath:cleanup-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 	public void testGetUserLogins_AllFitersPresent() throws Exception {
 		String url = "/logins?start=10000101&end=10000101&attribute1=1&attribute2=1&attribute3=1&attribute4=1";
 		String expected = "[{\"@@@Test1\":1}]";
@@ -155,8 +155,8 @@ public class LoginControllerTest {
 	}
 
 	@Test
-	@Sql("insert-data.sql")
-	@Sql(scripts = "cleanup-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
+	@Sql("classpath:insert-data.sql")
+	@Sql(scripts = "classpath:cleanup-data.sql", executionPhase = ExecutionPhase.AFTER_TEST_METHOD)
 	public void testGetUserLogins_SomeFitersPresent() throws Exception {
 		String url = "/logins?start=88880101&end=88880101&attribute1=888&attribute2=888&attribute3=888";
 		String expected = "[{\"@@@Test888.1\":1},{\"@@@Test888.2\":1}]";
