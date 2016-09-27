@@ -2,10 +2,10 @@
 Programming Test using Spring stack
 
 # Database Schema
-The database schema can be found -here-.
+The database schema is [`20160927_DB_data.sql`](https://github.com/reylibutan/logintest/blob/master/20160927_DB_data.sql).
 
 # Generating Dummy Data
-To generate dummy data, run -LogintestDataLoader-. Additionally, you can change some configuration to generate the data as desired.
+To generate dummy data, run [`LogintestDataLoader.java`](https://github.com/reylibutan/logintest/blob/master/src/main/java/com/libutan/rey/logintest/LogintestDataLoader.java). Additionally, you can change some configuration to generate the data as desired.
 Such as the following:
 
 ```
