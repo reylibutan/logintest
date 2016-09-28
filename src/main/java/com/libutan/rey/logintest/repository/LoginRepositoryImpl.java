@@ -82,7 +82,7 @@ public class LoginRepositoryImpl implements LoginCustomRepository {
 		.groupBy(root.get("user"))
 		.orderBy(cb.asc(root.get("user")));
 
-		List<Map<String, Long>> userLogins = null;
+		List<Map<String, Long>> userLogins = new ArrayList<Map<String, Long>>();
 		List<Tuple> tupleList = em.createQuery(cq).getResultList();
 
 		if (!(tupleList == null || tupleList.isEmpty())) {
