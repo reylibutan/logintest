@@ -3,6 +3,8 @@ package com.libutan.rey.logintest;
 import java.util.Date;
 import java.util.Random;
 
+import javax.transaction.Transactional;
+
 import org.hibernate.StatelessSession;
 import org.hibernate.Transaction;
 import org.hibernate.jpa.HibernateEntityManagerFactory;
@@ -27,26 +29,38 @@ public class LogintestDataLoader {
 		ApplicationContext ctx = SpringApplication.run(LogintestDataLoader.class, args);
 
 		HibernateEntityManagerFactory emFactory = (HibernateEntityManagerFactory) ctx.getBean("entityManagerFactory");
-		StatelessSession session = emFactory.getSessionFactory().openStatelessSession();
-		Transaction transaction = session.beginTransaction();
+		StatelessSession session = null;
+		Transaction transaction = null;
+		
+		try {
+			session = emFactory.getSessionFactory().openStatelessSession();
+			transaction = session.beginTransaction();
 
-		// delete table (not truncate so as to be rollback-able)
-		session.createQuery("DELETE FROM " + TABLE_NAME).executeUpdate();
+			// delete table (not truncate so as to be rollback-able)
+			session.createQuery("DELETE FROM " + TABLE_NAME).executeUpdate();
 
-		for (int i = 0 ; i < NO_OF_RECORDS ; i++) {
-			Login login = new Login();
-			login.setLoginTime(new Date(MIN_TIME + (long)(rand.nextDouble() * (MAX_TIME - MIN_TIME))));
-			login.setUser(NAMES[rand.nextInt(NAMES.length)]);
-			login.setAttribute1(ATTRIBUTES[rand.nextInt(ATTRIBUTES.length)]);
-			login.setAttribute2(ATTRIBUTES[rand.nextInt(ATTRIBUTES.length)]);
-			login.setAttribute3(ATTRIBUTES[rand.nextInt(ATTRIBUTES.length)]);
-			login.setAttribute4(ATTRIBUTES[rand.nextInt(ATTRIBUTES.length)]);
+			for (int i = 0 ; i < NO_OF_RECORDS ; i++) {
+				Login login = new Login();
+				login.setLoginTime(new Date(MIN_TIME + (long)(rand.nextDouble() * (MAX_TIME - MIN_TIME))));
+				login.setUser(NAMES[rand.nextInt(NAMES.length)]);
+				login.setAttribute1(ATTRIBUTES[rand.nextInt(ATTRIBUTES.length)]);
+				login.setAttribute2(ATTRIBUTES[rand.nextInt(ATTRIBUTES.length)]);
+				login.setAttribute3(ATTRIBUTES[rand.nextInt(ATTRIBUTES.length)]);
+				login.setAttribute4(ATTRIBUTES[rand.nextInt(ATTRIBUTES.length)]);
 
-			session.insert(login);
+				session.insert(login);
+			}
+
+			transaction.commit();
+		} catch(Exception e) {
+			e.printStackTrace();
+			transaction.rollback();
+		} finally {
+			if (session != null) {
+				session.close();
+			}
 		}
-
-		transaction.commit();
-		session.close();
+		
 		SpringApplication.exit(ctx);
 	}
 }
