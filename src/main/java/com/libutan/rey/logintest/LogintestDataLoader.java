@@ -3,8 +3,6 @@ package com.libutan.rey.logintest;
 import java.util.Date;
 import java.util.Random;
 
-import javax.transaction.Transactional;
-
 import org.hibernate.StatelessSession;
 import org.hibernate.Transaction;
 import org.hibernate.jpa.HibernateEntityManagerFactory;
